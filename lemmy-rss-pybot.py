@@ -287,7 +287,7 @@ def load_seen_articles(log_file):
                     article_url = match.group(2).strip()
                     seen_articles[article_url] = article_title
                 else:
-                    # For backward compatibility with logs from older versions
+                    # For backward compatibility with old logs
                     match = regex.search(r'Posted: (.*?) \| (.*)', line)
                     if match:
                         article_title = match.group(1).strip()
@@ -438,11 +438,50 @@ Examples of Lemmy RSS PyBot Usage:
                             article_title = entry.get('title', '')
                             link = entry.get('link', '')
 
+                            # Initialize content_to_search as an empty string
+                            content_to_search = ""
+
                             if not article_title or not link:
                                 continue  # Skip if essential data is missing
 
                             if link in seen_articles or article_title in seen_articles.values():
                                 continue
+
+                            # Build the content to search for keywords
+                            if keywords:
+                                content_to_search = f"{article_title} {entry.get('summary', '')}"
+                                content_to_search = unicodedata.normalize('NFKD', content_to_search)
+                                content_to_search = unicodedata.normalize('NFC', content_to_search)
+
+                            # Skip articles if keyword filtering is enabled and no keywords are matched
+                            if keywords and content_to_search:
+                                keywords_normalized = [unicodedata.normalize('NFC', kw) for kw in keywords]
+                                matched = False
+                                for keyword in keywords_normalized:
+                                    pattern = regex.compile(r'\b' + regex.escape(keyword) + r'\b', flags=regex.IGNORECASE | regex.UNICODE)
+                                    if pattern.search(content_to_search):
+                                        matched = True
+                                        logging.debug(f"Article '{article_title}' matched keyword '{keyword}'.")
+                                        break
+                                if not matched:
+                                    logging.debug(f"Skipping article '{article_title}' as it does not match any keyword.")
+                                    continue  # Skip if none of the keywords are found
+
+                            # Proceed to post the article if there are no keyword filters or the article matches
+                            try:
+                                create_post(lemmy_instance_url, jwt, community_id, community_name, article_title, link)
+                                seen_articles[link] = article_title
+                                last_post_time[community_name] = datetime.now(timezone.utc)
+                                posts_made += 1
+                                simultaneous_posts += 1
+                                found_matching_articles = True
+
+                                if simultaneous_posts >= simultaneously or posts_made >= args.max_posts:
+                                    break
+                            except Exception as e:
+                                logging.error(f"Error posting article '{article_title}' to community '{community_name}': {e}")
+                                logging.debug(traceback.format_exc())
+
 
                             # Keyword filtering
                             if keywords:
