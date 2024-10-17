@@ -1,7 +1,7 @@
 # Lemmy RSS PyBot 🤖
 ![Lemmy RSS PyBot Logo](assets/logo.jpg)
 
-*Bringing the latest news to your Lemmy communities!*
+*Bringing the latest news to your favourite Lemmy communities!*
 
 [![License](https://img.shields.io/badge/license-AGPL-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.html)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
