@@ -1,0 +1,14 @@
+services:
+  lemmy-rss-pybot:
+    build: .
+    container_name: lemmy-rss-pybot
+    volumes:
+      - ./lemmy_bot.log:/app/lemmy_bot.log
+      - ./rss_feeds.json:/app/rss_feeds.json
+      - ./.env:/app/.env
+    environment:
+      - LEMMY_USERNAME=${LEMMY_USERNAME}
+      - LEMMY_PASSWORD=${LEMMY_PASSWORD}
+      - LEMMY_INSTANCE_URL=${LEMMY_INSTANCE_URL}
+    restart: unless-stopped
+    entrypoint: sh -c "test -f /app/rss_feeds.json || (echo 'Error: rss_feeds.json not found' && exit 1); test -f /app/.env || (echo 'Error: .env not found' && exit 1); python lemmy-rss-pybot.py"
