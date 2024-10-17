@@ -3,3 +3,4 @@ requests
 python-dotenv
 regex
 logging
+lemmy.py
