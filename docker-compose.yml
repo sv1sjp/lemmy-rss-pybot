@@ -1,7 +1,7 @@
 services:
-  lemmy_bot:
+  lemmy-rss-pybot:
     build: .
-    container_name: lemmy_pybot
+    container_name: lemmy-rss-pybot
     volumes:
       - ./lemmy_bot.log:/app/lemmy_bot.log
       - ./rss_feeds.json:/app/rss_feeds.json
@@ -15,4 +15,5 @@ services:
       sh -c "test -f /app/rss_feeds.json || (echo 'rss_feeds.json not found' && exit 1); 
       test -f /app/.env || (echo '.env not found' && exit 1); 
       python lemmy-rss-pybot.py --max_posts 5"
+
 
