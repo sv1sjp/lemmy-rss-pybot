@@ -5,11 +5,13 @@ FROM python:slim
 WORKDIR /app
 
 # Copy the requirements file to the container
-COPY requirements.txt .
+COPY requirements.txt /app/
 
 # Install the required packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code to the container
-COPY lemmy-rss-pybot.py .
+# Copy the Python script into the container
+COPY lemmy-rss-pybot.py /app/
 
+# Set the default command to run the bot
+ENTRYPOINT ["python", "/app/lemmy-rss-pybot.py"]
