@@ -95,7 +95,7 @@ python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
 1. **Basic Usage:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
+    python lemmy_pybot.py
     ```
 
 2. **Using Specific Time Interval:**
@@ -133,7 +133,11 @@ python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
     ```bash
     python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --keywords "Python, AI, Machine Learning" --max_posts 5 --interval 15
     ```
-
+8. ** Show detailed instructions: **
+    
+    ```bash
+    python lemmy_pybot.py --help
+    ```
 ### Running with Docker 🐳
 
 #### Build the Docker Image
