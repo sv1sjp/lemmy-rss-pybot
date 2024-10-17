@@ -1,0 +1,5 @@
+feedparser
+requests
+python-dotenv
+regex
+logging
