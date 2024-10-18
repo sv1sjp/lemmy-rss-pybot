@@ -1,6 +1,8 @@
 services:
   lemmy-rss-pybot:
-    build: .
+    image: sv1sjp/lemmy-rss-pybot:latest
+    #Uncomment the next line and comment out this one if you want to build the image locally
+    #build: .
     container_name: lemmy-rss-pybot
     volumes:
       - ./lemmy_bot.log:/app/lemmy_bot.log
