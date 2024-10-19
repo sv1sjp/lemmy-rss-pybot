@@ -133,20 +133,13 @@ python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
     ```bash
     python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --keywords "Python, AI, Machine Learning" --max_posts 5 --interval 15
     ```
-8. ** Show detailed instructions: **
+8. **Show detailed instructions:**
     
     ```bash
     python lemmy_pybot.py --help
     ```
-### Running with Docker 🐳
-
-#### Build the Docker Image
-
-```bash
-docker build -t lemmy-rss-pybot .
-```
-
 #### Run with Docker Compose 🐳
+The image has already been uploaded on DockerHub, however Dockerfile is available to built it by your own.
 
 ```bash
 docker-compose up -d
