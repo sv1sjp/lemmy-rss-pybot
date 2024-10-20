@@ -24,24 +24,15 @@ Lemmy RSS PyBot is a powerful Python bot that reads RSS feeds and posts new arti
 ![Execution Screenshot](assets/screen.jpg)
 ## 📦 Requirements
 
-- Python 3.9 or higher,
 - Lemmy account credentials in the .env file,
 - Access to Lemmy instance API,
 - A json file with the desired RSS links and communites with a true label to enable them.
 
-## 🛠️ Installation
-
-### Locally
+## 🛠️ Installation (both locally or in Docker container)
 
 ```bash
 git clone https://github.com/sv1sjp/lemmy_rss_pybot.git
-cd lemmy_rss_pybot
-```
-
-### Install Requirements
-
-```bash
-pip install -r requirements.txt
+cd lemmy-rss-pybot
 ```
 
 ## 🔧 Configuration
@@ -75,16 +66,15 @@ Create a `rss_feeds.json` file to specify the RSS feeds and the Lemmy communitie
 ]
 ```
 
-### Keywords (Optional)
-
-You can filter articles by keywords using a file or command-line arguments.
-
-- Create a `keywords.txt` file with one keyword per line.
-- Or specify keywords via the `--keywords` argument.
-
 ## 🏃‍♂️ Usage
 
 ### Running Locally
+
+#### Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
 
 ```bash
 python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
@@ -101,45 +91,54 @@ python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --interval 15
 2. **Using Specific Time Interval:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --time 20
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --log lemmy_bot.log --time 20
     ```
 
 3. **Post Simultaneously to Communities (2 posts each):**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --simultaneously 2 --interval 10
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --log lemmy_bot.log --simultaneously 2 --interval 10
     ```
 
 4. **Verbose Mode:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --verbose
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --log lemmy_bot.log --verbose
     ```
 
 5. **Keyword Filtering:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --keywords "technology, Europe, science" --max_posts 5
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --keywords "technology, Europe, science" --max_posts 5
     ```
 
 6. **Keyword Filtering from File:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --keywords-file keywords.txt --max_posts 5
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --keywords-file keywords.txt --max_posts 5
     ```
 
 7. **Keyword Filtering with Custom Keywords:**
 
     ```bash
-    python lemmy_pybot.py --feeds rss_feeds.json --log lemmy_bot.log --keywords "Python, AI, Machine Learning" --max_posts 5 --interval 15
+    python lemmy-rss-pybot.py --feeds rss_feeds.json --log lemmy_bot.log --keywords "Python, AI, Machine Learning" --max_posts 5 --interval 15
     ```
 8. **Show detailed instructions:**
     
     ```bash
-    python lemmy_pybot.py --help
+    python lemmy-rss-pybot.py --help
     ```
+
+### Keywords (Optional)
+
+You can filter articles by keywords using a file or command-line arguments.
+
+- Create a `keywords.txt` file with one keyword per line.
+- Or specify keywords via the `--keywords` argument.
+- 
 #### Run with Docker Compose 🐳
 The image has already been uploaded on DockerHub, however Dockerfile is available to built it by your own.
+In lemmy-rss-pybot folder, after configuring the required files, run:
 
 ```bash
 docker-compose up -d
